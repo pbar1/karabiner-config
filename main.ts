@@ -23,7 +23,7 @@ writeToProfile(
         .holdTapStrategy("permissive-hold")
         .chordalHold(true)
         .simultaneousThreshold(90)
-        .tappingTerm(110)
+        .tappingTerm(50)
         .build(),
     ),
   ],
