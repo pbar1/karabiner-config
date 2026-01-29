@@ -18,7 +18,7 @@ writeToProfile("Default profile", [
       ]),
     )
       .lazy(true)
-      .holdTapStrategy("hold-on-other-key-press")
+      .holdTapStrategy("permissive-hold")
       .chordalHold(true)
       .simultaneousThreshold(90)
       .tappingTerm(150)
