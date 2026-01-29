@@ -1,32 +1,27 @@
-import {
-  layer,
-  map,
-  NumberKeyValue,
-  rule,
-  withMapper,
-  writeToProfile,
-} from 'karabiner.ts'
+import { rule, writeToProfile } from "karabiner.ts";
+import { hrm } from "karabiner.ts-greg-mods";
 
-// ! Change '--dry-run' to your Karabiner-Elements Profile name.
-// (--dry-run print the config json into console)
-// + Create a new profile if needed.
-writeToProfile('--dry-run', [
-  // It is not required, but recommended to put symbol alias to layers,
-  // (If you type fast, use simlayer instead, see https://evan-liu.github.io/karabiner.ts/rules/simlayer)
-  // to make it easier to write '←' instead of 'left_arrow'.
-  // Supported alias: https://github.com/evan-liu/karabiner.ts/blob/main/src/utils/key-alias.ts
-  layer('/', 'symbol-mode').manipulators([
-    //     / + [ 1    2    3    4    5 ] =>
-    withMapper(['⌘', '⌥', '⌃', '⇧', '⇪'])((k, i) =>
-      map((i + 1) as NumberKeyValue).toPaste(k),
-    ),
-    withMapper(['←', '→', '↑', '↓', '␣', '⏎', '⇥', '⎋', '⌫', '⌦', '⇪'])((k) =>
-      map(k).toPaste(k),
-    ),
-  ]),
+// TODO: https://github.com/gregorias/karabiner.ts-greg-mods?tab=readme-ov-file#caps-word
 
-  rule('Key mapping').manipulators([
-    // config key mappings
-    map(1).to(1)
-  ]),
-])
+writeToProfile("Default profile", [
+  rule("Home row mods").manipulators(
+    hrm(
+      new Map([
+        ["a", "l⌃"],
+        ["s", "l⌥"],
+        ["d", "l⌘"],
+        ["f", "l⇧"],
+        ["j", "r⇧"],
+        ["k", "r⌘"],
+        ["l", "r⌥"],
+        [";", "r⌃"],
+      ]),
+    )
+      .lazy(true)
+      .holdTapStrategy("permissive-hold")
+      .chordalHold(true)
+      .simultaneousThreshold(90)
+      .tappingTerm(110)
+      .build(),
+  ),
+]);
